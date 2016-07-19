@@ -27,14 +27,14 @@ colors.setTheme({
 
 const PATHS = {
     SRC: {
-        JS: ['src/js/**/*.ts'],
-        VIEW: ['src/view/**/*.html'],
-        CSS: ['src/css/**/*.styl']
+        JS: 'src/js/**/*.ts',
+        VIEW: 'src/view/**/*.html',
+        CSS: 'src/css/**/*.styl'
     },
     DIST: {
         JS: 'dist/js',
         VIEW: 'dist/view',
-        CSS: ' dist/css'
+        CSS: 'dist/css'
     }
 }
 
@@ -43,23 +43,31 @@ const PATHS = {
  */
 const JS_BUNDLE = [
     {
-        In: './src/js/Class/*.ts',
+        In: 'src/js/Class/*.ts',
         Out: 'Class.js'
     },
     {
-        In: './src/js/Function/*.ts',
+        In: 'src/js/Function/*.ts',
         Out: 'Function.js'
+    },
+    {
+        In: 'src/js/Enum/*.ts',
+        Out: 'Enum.js'
+    },
+    {
+        In: 'src/js/Namespaces/*.ts',
+        Out: 'Namespace.js'
     }
 ]
 
 /**
  * This task used to compile a file *.ts into a file *.js (one by one)
  */
-gulp.task("test", function () {
-    return gulp.src(PATHS.js)
+gulp.task("test", ['cleanJS'], function () {
+    return gulp.src(PATHS.SRC.JS)
         .pipe(ts({
             'compilerOptions': {
-                "target": "es5",
+                "target": "es2015",
                 "module": "commonjs",
                 "sourceMap": true,
                 "pretty": true,
@@ -83,11 +91,13 @@ gulp.task("js-dev", ['cleanJS'], function () {
             entries: files,
             cache: {},
             packageCache: {},
-            sourceMap: true
         })
             .plugin(tsify)
-            .transform('babelify')
+            .transform('babelify', {
+                presets: ['es2015']
+            })
             .bundle()
+            .on('error', function (err) { console.log(err.toString().error); })
             .pipe(source(src.Out))
             .pipe(gulp.dest(PATHS.DIST.JS));
     }, this);
@@ -101,14 +111,15 @@ gulp.task('js-prod', ['cleanJS'], function () {
         var files = glob.sync(src.In)
         return browserify({
             basedir: '.',
-            debug: true,
+            debug: false,
             entries: files,
             cache: {},
             packageCache: {},
-            sourceMap: true
         })
             .plugin(tsify)
-            .transform('babelify')
+            .transform('babelify', {
+                presets: ['es2015']
+            })
             .bundle()
             .pipe(source(src.Out))
             .pipe(buffer())
@@ -142,13 +153,14 @@ gulp.task('copy-views', ['cleanView'], function () {
  * This task used to watch changes in  files *.ts , *.styl, *.html and start to re-build js, css , html
  */
 gulp.task('watch', function () {
+    console.log("Watching changes.....".info)
     gulp.watch(PATHS.SRC.JS, ['js-dev']);
     gulp.watch(PATHS.SRC.CSS, ['stylus']);
     gulp.watch(PATHS.SRC.View, ['copy-views']);
 })
 
 //--------- CLEAN UP -------------
-gulp.task('clean-up', ['cleanJS','cleanCSS','cleanView']);
+gulp.task('clean-up', ['cleanJS', 'cleanCSS', 'cleanView']);
 
 gulp.task('cleanJS', function () {
     return del('dist/js');
@@ -168,7 +180,6 @@ gulp.task('cleanView', function () {
 //----------- Dev and Production ----------
 gulp.task('dev', ['js-dev', 'copy-views', 'stylus'], function () {
     gulp.start('watch');
-    console.log("Watching changes.....".info)
 });
 
 gulp.task('prod', ['js-prod', 'copy-views', 'stylus-prod'], function () {

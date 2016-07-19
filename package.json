@@ -1,0 +1,22 @@
+{
+  "name": "SSFE",
+  "version": "1.0.0",
+  "description": "This project used to create standard structure for FE code. I use Typescript for JSCode , Stylus for CSS",
+  "author": "Tai Nguyen",
+  "license": "None",
+  "devDependencies": {
+    "browserify": "^13.0.1",
+    "del": "^2.2.1",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^2.13.6",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.8",
+    "tsify": "^1.0.1",
+    "typescript": "^1.8.10",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
+  },
+  "dependencies": {
+    "glob": "^7.0.5"
+  }
+}

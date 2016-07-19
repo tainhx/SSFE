@@ -10,4 +10,6 @@ class Greeter {
 }
 
 let greeter = new Greeter("world");
+
+export {Greeter}
 //--------------- END INTRO

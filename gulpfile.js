@@ -25,11 +25,10 @@ colors.setTheme({
     error: 'red'
 });
 
-
 const PATHS = {
     SRC: {
         JS: ['src/js/**/*.ts'],
-        View: ['src/view/**/*.html'],
+        VIEW: ['src/view/**/*.html'],
         CSS: ['src/css/**/*.styl']
     },
     DIST: {
@@ -75,7 +74,7 @@ gulp.task("test", function () {
 /**
  * This task used to bundle files in a folder into a file js named follow module
  */
-gulp.task("js-dev", ['clean-up-js'], function () {
+gulp.task("js-dev", ['cleanJS'], function () {
     return JS_BUNDLE.forEach(function (src) {
         var files = glob.sync(src.In)
         return browserify({
@@ -87,6 +86,7 @@ gulp.task("js-dev", ['clean-up-js'], function () {
             sourceMap: true
         })
             .plugin(tsify)
+            .transform('babelify')
             .bundle()
             .pipe(source(src.Out))
             .pipe(gulp.dest(PATHS.DIST.JS));
@@ -96,7 +96,7 @@ gulp.task("js-dev", ['clean-up-js'], function () {
 /**
  * This task used to build js and minify it for Production
  */
-gulp.task('js-prod', ['clean-up-js'], function () {
+gulp.task('js-prod', ['cleanJS'], function () {
     return JS_BUNDLE.forEach(function (src) {
         var files = glob.sync(src.In)
         return browserify({
@@ -108,6 +108,7 @@ gulp.task('js-prod', ['clean-up-js'], function () {
             sourceMap: true
         })
             .plugin(tsify)
+            .transform('babelify')
             .bundle()
             .pipe(source(src.Out))
             .pipe(buffer())
@@ -119,17 +120,21 @@ gulp.task('js-prod', ['clean-up-js'], function () {
 });
 
 /**
- * Devare CSS
+ * Clear CSS
  */
-gulp.task('stylus', ['clean-up-css'], function () {
+gulp.task('stylus', ['cleanCSS'], function () {
 
 });
 
-/**
- * Devare Views
- */
-gulp.task('copy-views', ['clean-up-view'], function () {
+gulp.task('stylus-prod', ['cleanCSS'], function () {
 
+});
+/**
+ * Clear Views
+ */
+gulp.task('copy-views', ['cleanView'], function () {
+    return gulp.src(PATHS.SRC.VIEW)
+        .pipe(gulp.dest(PATHS.DIST.VIEW));
 });
 // -------------------- END BUILD ASSETS --------------------
 
@@ -137,32 +142,36 @@ gulp.task('copy-views', ['clean-up-view'], function () {
  * This task used to watch changes in  files *.ts , *.styl, *.html and start to re-build js, css , html
  */
 gulp.task('watch', function () {
-    gulp.watch(PATHS.SRC.JS, ['scripts']);
+    gulp.watch(PATHS.SRC.JS, ['js-dev']);
     gulp.watch(PATHS.SRC.CSS, ['stylus']);
+    gulp.watch(PATHS.SRC.View, ['copy-views']);
 })
 
 //--------- CLEAN UP -------------
-gulp.task('clean-up', ['clean-up-js']);
+gulp.task('clean-up', ['cleanJS','cleanCSS','cleanView']);
 
-gulp.task('clean-up-js', function () {
+gulp.task('cleanJS', function () {
     return del('dist/js');
-})
+});
 
-gulp.task('clean-up-css', function () {
+gulp.task('cleanCSS', function () {
     return del('dist/css');
-})
+});
 
+gulp.task('cleanView', function () {
+    return del('dist/css');
+});
 //TODO : add more clean-up here....
 
 //--------- END CLEAN UP ------------
 
 //----------- Dev and Production ----------
-gulp.task('dev', ['js-dev'], function () {
+gulp.task('dev', ['js-dev', 'copy-views', 'stylus'], function () {
     gulp.start('watch');
     console.log("Watching changes.....".info)
 });
 
-gulp.task('prod', ['js-prod'], function () {
+gulp.task('prod', ['js-prod', 'copy-views', 'stylus-prod'], function () {
     console.log("Build production successfully....................".info);
 });
 //-----------End  Dev and Production ----------

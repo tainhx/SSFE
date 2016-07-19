@@ -5,6 +5,7 @@
   "author": "Tai Nguyen",
   "license": "None",
   "devDependencies": {
+    "babelify": "^7.3.0",
     "browserify": "^13.0.1",
     "colors": "^1.1.2",
     "del": "^2.2.1",

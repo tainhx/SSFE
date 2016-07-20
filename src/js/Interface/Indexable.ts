@@ -18,19 +18,30 @@ dicString = {
     b: "Alice"
 }
 
-var normalObj = {
+let normalObj = {
     a: "Bob",
     b: "Alice",
 }
 
+let normalArray = ["Bob","Alice"];
+
 console.log(dicNumber[0]);
 console.log(dicNumber["0"]);
 
+console.log('-----------------');
+console.log(normalArray[0]);
+console.log(normalArray["0"]);
+
+console.log('-----------------');
+
 console.log(dicString["a"]);
-// console.log(dicString.a);
+//  console.log(dicString.a);
+
+console.log('-----------------');
 
 console.log(normalObj["a"]);
 console.log(normalObj.a);
+
 //-----------------------------------------------
 
 

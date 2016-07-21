@@ -27,21 +27,20 @@ let list_1: Array<number> = [1, 2, 3];
  */
 
 // Declare a tuple type
-let x: [string, number];
-
-// Initialize it
-x = ["hello", 10]; // OK
+let x: [string, number, boolean];
+x = ["string", 1, false];
 
 // Initialize it incorrectly
-// x = [10, "hello"]; // Error
+//x = [10, "hello"]; // Error
 
-//Access value by known index
-console.log(x[0]);
-console.log(x[1]);
-
-x[3] = "World";
+x[3] = 1;
 console.log(x[3]);
 
+x[4] = false;
+x[5] = false;
+console.log(x[4]);
+console.log(x[5]);
+console.log(x);
 // x[6] = true;  // Error, 'boolean' isn't 'string | number' 
 //-----------------------------------------
 

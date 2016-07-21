@@ -23,7 +23,7 @@ let normalObj = {
     b: "Alice",
 }
 
-let normalArray = ["Bob","Alice"];
+let normalArray : string[] = ["Bob","Alice"];
 
 console.log(dicNumber[0]);
 console.log(dicNumber["0"]);

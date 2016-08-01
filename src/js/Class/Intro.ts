@@ -16,7 +16,7 @@ let greeter = new Greeter("world");
 /**
  * 'Parameter properties' let you create and initialize a member in one place
  */
-class Animal {
+class Vehicle {
     constructor(private name: string) { }
     move(distanceInMeters: number) {
         console.log(`${this.name} moved ${distanceInMeters}m.`);

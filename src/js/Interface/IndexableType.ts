@@ -12,6 +12,7 @@ interface Dictionary {
 let dicNumber: Dictionary;
 dicNumber = ["Bob", "Alice"];
 
+
 let dicString: Dictionary;
 dicString = {
     a: "Bob",
@@ -25,8 +26,12 @@ let normalObj = {
 
 let normalArray : string[] = ["Bob","Alice"];
 
+dicNumber[2] = "Tai Nguyen";
+
 console.log(dicNumber[0]);
 console.log(dicNumber["0"]);
+console.log(dicNumber[1]);
+
 
 console.log('-----------------');
 console.log(normalArray[0]);
@@ -34,8 +39,9 @@ console.log(normalArray["0"]);
 
 console.log('-----------------');
 
+dicString["three"] = "Tai Nguyen"
 console.log(dicString["a"]);
-//  console.log(dicString.a);
+console.log(dicString.a);
 
 console.log('-----------------');
 

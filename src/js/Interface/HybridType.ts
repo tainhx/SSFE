@@ -8,6 +8,7 @@ interface Counter {
     reset(): void;
 }
 
+
 function getCounter(): Counter {
     let counter = function (s: number) { 
         console.log(s);

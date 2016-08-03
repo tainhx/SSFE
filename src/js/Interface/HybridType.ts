@@ -10,9 +10,7 @@ interface Counter {
 
 
 function getCounter(): Counter {
-    let counter = function (s: number) { 
-        console.log(s);
-    } as Counter;
+    let counter =  <Counter>function (start: number) { };
     counter.interval = 123;
     counter.reset = () => { };
     return counter;

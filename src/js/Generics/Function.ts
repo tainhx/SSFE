@@ -2,6 +2,9 @@ function identity<T>(arg: T): T {
     return arg;
 }
 
+let output = identity<string>("Tai Nguyen");
+let output_1 = identity("Tai Nguyen"); // most COMMON
+
 function loggingIdentity<T>(arg: T[]): T[] {
     console.log(arg.length);
     return arg;

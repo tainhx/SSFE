@@ -1,25 +1,27 @@
 //-------------- INHERITANCE ---------------------
 class Animal {
     name: string;
-    constructor(theName: string) { this.name = theName; }
-    move(distanceInMeters: number = 0) {
-        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    constructor(theName: string) { 
+        this.name = theName; 
+    }
+    move(away: number = 0) {
+        console.log(`${this.name} moved ${away}m.`);
     }
 }
 
 class Snake extends Animal {
     constructor(name: string) { super(name); }
-    move(distanceInMeters = 5) {
+    move(away = 5) {
         console.log("Slithering...");
-        super.move(distanceInMeters);
+        super.move(away);
     }
 }
 
 class Horse extends Animal {
     constructor(name: string) { super(name); }
-    move(distanceInMeters = 45) {
+    move(away = 45) {
         console.log("Galloping...");
-        super.move(distanceInMeters);
+        super.move(away);
     }
 }
 

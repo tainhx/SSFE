@@ -1,15 +1,14 @@
 //------------ INTRO -------------------
 class Greeter {
-    greeting: string;
-    constructor(message: string) {
-        this.greeting = message;
-    }
+    constructor(public greeting: string) { }
     greet() {
         return "Hello, " + this.greeting;
     }
 }
 
+
 let greeter = new Greeter("world");
+
 //--------------- END INTRO
 
 //--------------------- Parameter properties ---------------------

@@ -5,10 +5,10 @@
  */
 
 class Control {
-    private state: any;
+    public state: any;
     print(s: string): void {
-         this.state = s;
-         console.log(this.state);   
+        this.state = s;
+        console.log(this.state);
     }
 }
 
@@ -29,8 +29,14 @@ class TextBox extends Control {
 class ImageControl extends Control {
 }
 
-class LocationControl {
-    select() { }
+class LocationControl implements SelectableControl {
+    state: any;
+    print(s: string): void {
+
+    }
+    select(){
+        
+    }
 }
 
 let selectableControl = new TextBox();

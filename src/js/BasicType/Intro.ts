@@ -1,24 +1,36 @@
 //------------- Boolean ------------
+
 let isDone: boolean = false;
+
 //---------------------------------
 
 //---------------  Number -----------
+
 let decimal: number = 6;
 let hex: number = 0xf00d;
 let binary: number = 0b1010;
 let octal: number = 0o744;
+
 //----------------------------------
 
 //---------------- String ---------------
+
 let color: string = "blue";
 color = 'red';
+
+let age: number = 1;
+let sentence: string = `Color is ${color}`;
+sentence = `My age is ${age + 1}`;
+
 //---------------------------------------
 
-//------------------ Array ------------------
-let list: number[] = [1, 2, 3];
 
+//------------------ Array ------------------
+
+let list: number[] = [1, 2, 3];
 let list_1: Array<number> = [1, 2, 3];
 //-------------------------------------------
+
 
 //------------------- TUPLE ----------------
 /**
@@ -27,13 +39,19 @@ let list_1: Array<number> = [1, 2, 3];
  */
 
 // Declare a tuple type
+
 let x: [string, number, boolean];
-x = ["string", 1, false];
+x = [false, 1, 'string'];
+
+let y: Array<string | number | boolean>;
+y = [false, 1, "string"];
+
+
 
 // Initialize it incorrectly
 //x = [10, "hello"]; // Error
 
-x[3] = 1;
+x[3] = false;
 console.log(x[3]);
 
 x[4] = false;
@@ -64,8 +82,6 @@ let c2: Color2 = Color2.Green;
 let notSure: any = 4;
 notSure = "maybe a string instead";
 notSure = false; // okay, definitely a boolean
-
-
 let listAny: any[] = [1, true, "free"];
 
 listAny[1] = 100;
@@ -96,3 +112,4 @@ let someValue1: any = "this is a string";
 
 let strLength1: number = (someValue1 as string).length;
 //----------------------------------------------------------
+
